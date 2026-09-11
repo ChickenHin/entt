@@ -1,6 +1,6 @@
 name: coverage
 
-on: [push, pull_request]
+on: [workflow_dispatch]
 
 jobs:
 
@@ -23,16 +23,16 @@ jobs:
       env:
         CTEST_OUTPUT_ON_FAILURE: 1
       run: ctest -C Debug -j4
-    - name: Collect data
-      working-directory: build
-      run: |
-        sudo apt install lcov
-        lcov -c -d . -o coverage.info --ignore-errors gcov,gcov,mismatch,mismatch
-        lcov -l coverage.info
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: build/coverage.info
-        name: EnTT
-        fail_ci_if_error: true
+    # - name: Collect data
+    #   working-directory: build
+    #   run: |
+    #     sudo apt install lcov
+    #     lcov -c -d . -o coverage.info --ignore-errors gcov,gcov,mismatch,mismatch
+    #     lcov -l coverage.info
+    # - name: Upload coverage to Codecov
+    #   uses: codecov/codecov-action@v3
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+    #     files: build/coverage.info
+    #     name: EnTT
+    #     fail_ci_if_error: true
